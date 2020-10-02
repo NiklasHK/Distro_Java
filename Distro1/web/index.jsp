@@ -15,5 +15,9 @@
         <h1>Hello World!</h1>
         <h1> user:  <%= session.getAttribute("username") %>
         </h1> 
+        <% ShoppingCart sc = new ShoppingCart(); sc.remove(); %>
+         <form action="items.jsp">
+            <button name="action" value="items">press me you fruit!</button>
+        </form>
     </body>
 </html>
