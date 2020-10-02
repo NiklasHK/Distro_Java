@@ -48,4 +48,9 @@ public class Item {
         this.id = id;
     }
     
+    @Override
+    public String toString(){
+        return this.name + this.descr;
+    }
+    
 }

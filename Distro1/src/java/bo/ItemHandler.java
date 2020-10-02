@@ -17,7 +17,5 @@ public class ItemHandler {
         }
         return items;
     }
-    
-    
-    
+
 }
