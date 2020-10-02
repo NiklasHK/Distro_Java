@@ -3,7 +3,7 @@
     Created on : 2020-sep-30, 15:24:17
     Author     : Emil
 --%>
-
+<%@page import="bo.ShoppingCart"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
