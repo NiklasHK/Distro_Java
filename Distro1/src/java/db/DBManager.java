@@ -22,7 +22,7 @@ public class DBManager {
    private DBManager(){
        try{
            Class.forName("com.mysql.jdbc.Driver").newInstance();
-           con = DriverManager.getConnection("jdbc:mysql://localhost");
+           con = DriverManager.getConnection("jdbc:mysql://localhost:3306/distroDB?UseClientEnc=UTF8?useTimezone=true&serverTimezone=UTC", "userboi", "passboi");
        }catch(Exception e){e.printStackTrace();}
    }
     
