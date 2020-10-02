@@ -39,7 +39,8 @@
             <% if(request.getParameter("add") != null ){
                out.println(request.getParameter("add"));
                sc = ShoppingCartHandler.addItemToShoppingCart("Select * from fruitstock where name='"+request.getParameter("add")+"';");
-               //out.println("Cart: " + sc.getItems().toString());
+               ShoppingCartHandler.updateDBShoppingCart("UPDATE shoppingcart SET " + request.getParameter("add") + "quantity = " + request.getParameter("add") + "quantity +1 WHERE username='"+ session.getAttribute("username")+"'");
+               out.println("Cart: " + "UPDATE shoppingcart SET " + request.getParameter("add") + "quantity = " + request.getParameter("add") + "quantity +1 WHERE username='"+ session.getAttribute("username")+"'");
                session.setAttribute("ShoppingCart", sc);
                session.getAttribute("ShoppingCart");
             } 
