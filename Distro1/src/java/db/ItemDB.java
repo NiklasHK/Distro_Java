@@ -5,13 +5,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class ItemDB extends bo.Item{
-    public static ArrayList searchItems(String item_group){
+    public static ArrayList getItems(String item_group){
         ArrayList<Object> items = new ArrayList<>();
         try{
             Connection con = DBManager.getConnection();
