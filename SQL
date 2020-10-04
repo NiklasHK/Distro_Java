@@ -25,4 +25,4 @@ create table shoppingcart(
 username varchar(255) primary key,
 applequantity int,
 bananaquantity int,
-pearquanitity int);
+pearquantity int);
