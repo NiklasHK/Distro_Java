@@ -9,8 +9,6 @@
 <%@page import="java.util.Iterator"%>
 <%@page import="bo.ItemHandler"%>
 <%@page import="java.util.Collection"%>
-<%@page import="java.util.Collection"%>
-<%@page import="ui.ItemInfo"%>
 <%@page import="ui.ItemInfo"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
