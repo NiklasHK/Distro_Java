@@ -39,7 +39,7 @@
                                 </table>
                             </tbody>
                         </form>
-            <%      out.print("Wrong pass jao");
+            <%      out.print("Incorrect Username or password");
                     }
                 }    
             %>
