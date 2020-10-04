@@ -44,8 +44,4 @@
             } 
             %>     
     </body>
-    
-
 </html>
-
-       <% //ShoppingCart sc = new ShoppingCart(); %>
