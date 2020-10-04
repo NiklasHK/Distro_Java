@@ -1,0 +1,28 @@
+create database distroDB;
+create user 'userboi'@'%' identified by 'passboi';
+grant all on distroDB.* to 'userboi'@'%';
+
+create table fruitstock(
+id int primary key, 
+name varchar(255),
+description varchar (255)
+);
+insert into fruitstock (id, name, description) values(
+'1', 'apple', 'röda och runda'
+);
+insert into fruitstock (id, name, description) values(
+'2', 'Banana', 'gula och långa'
+);
+insert into fruitstock (id, name, description) values(
+'3', 'Pear', 'Gröna och runda'
+);
+create table users(
+username varchar(255),
+password varchar(255)
+);
+
+create table shoppingcart(
+username varchar(255) primary key,
+applequantity int,
+bananaquantity int,
+pearquanitity int);
