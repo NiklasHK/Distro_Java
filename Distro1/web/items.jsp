@@ -1,5 +1,4 @@
-<%@page import="bo.ShoppingCartHandler"%>
-<%@page import="bo.ShoppingCart"%>
+<%@page import="db.ItemDB"%>
 <%@page import="java.util.Collection"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="ui.ItemInfo"%>
@@ -9,10 +8,15 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Title</title>
+        <title>Items</title>
     </head>
     <body>
-       <% ShoppingCart sc = new ShoppingCart(); %>
+        Logged in as: <%= session.getAttribute("username") %> 
+        <form action="index.jsp" >
+            <input type="submit" name="logout" value="Log out" ></input>
+        </form>
+        <br>
+        <h1> Items in stock </h1>
         <table style="align-content: flex-start">
             <tr>
             <% Collection<ItemInfo> items = ItemHandler.getItemsWithGroup("SELECT * FROM fruitstock");
@@ -20,12 +24,11 @@
             for (; it.hasNext();) {
                 ItemInfo item = it.next();%>
                 <tr> 
-                    <%= item.getName()%> :
-                    <%= item.getDescription()%> 
-                    <% out.print(item.getName());
-                        %>
+                    <%= item.getName() %> :
+                    <%= item.getDescription() %> 
                     <form action="items.jsp" >
-                        <input type="submit" name="add" value="<%= item.getName()%>" ></input>
+                        <input type="hidden" id="add" name="add" value="<%= item.getName() %>"</input>
+                        <input type="submit" id="add" value="+" ></input>
                     </form>
                 </tr>
             <br>
@@ -37,12 +40,7 @@
         </table>
 
             <% if(request.getParameter("add") != null ){
-               out.println(request.getParameter("add"));
-               sc = ShoppingCartHandler.addItemToShoppingCart("Select * from fruitstock where name='"+request.getParameter("add")+"';");
-               ShoppingCartHandler.updateDBShoppingCart("UPDATE shoppingcart SET " + request.getParameter("add") + "quantity = " + request.getParameter("add") + "quantity +1 WHERE username='"+ session.getAttribute("username")+"'");
-               out.println("Cart: " + "UPDATE shoppingcart SET " + request.getParameter("add") + "quantity = " + request.getParameter("add") + "quantity +1 WHERE username='"+ session.getAttribute("username")+"'");
-               session.setAttribute("ShoppingCart", sc);
-               session.getAttribute("ShoppingCart");
+               ItemHandler.addToBasket("UPDATE shoppingcart SET " + request.getParameter("add") + "quantity = " + request.getParameter("add") + "quantity +1 WHERE username='"+ session.getAttribute("username")+"'");
             } 
             %>     
     </body>
@@ -50,3 +48,4 @@
 
 </html>
 
+       <% //ShoppingCart sc = new ShoppingCart(); %>

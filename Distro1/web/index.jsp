@@ -1,4 +1,6 @@
 
+<%@page import="bo.userHandler"%>
+<%@page import="db.userDB"%>
 <%-- 
     Document   : login
     Created on : Oct 1, 2020, 3:10:58 PM
@@ -11,21 +13,38 @@
         <title>Login Page</title>
     </head>
     <body>
+        <h1> Login </h1>
         <%
             String username = request.getParameter("uname");
             String password = request.getParameter("pass");
-            if (password != null && username != null){
-                session.setAttribute("username", username);
+            if (password != null && username != null) {
+                if(userHandler.checkUser("Select * from users where username='" + request.getParameter("uname") + "';")){
+                    if(userHandler.checkUser("Select * from users where username='" + request.getParameter("uname") + "' and password='" + request.getParameter("pass") +"';")){
+                        session.setAttribute("username", username); 
+                        response.sendRedirect(request.getContextPath()+"/items.jsp");
+                    } else {
+                    %>
+                        <form method="post" action ="index.jsp">
+                            <tbody>
+                            <table>
+                                <tr>
+                                    <td>User Name: <input type="text" name="uname" value ="" /></td>
+                                </tr>
+                                <tr>
+                                    <td>Password: <input type="password" name ="pass" value="" />  </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="submit" name="Login" value ="Login" /></td>
+                                </tr>
+                                </table>
+                            </tbody>
+                        </form>
+            <%      out.print("Wrong pass jao");
+                    }
+                }    
             %>
-        Logged in as <%= username %>, Go to shop?
-        <form method="post" action="login.jsp">
-        <table>
-            <tr>
-                <td><input type="submit" value ="Go" /></td>
-            </tr>
-        </table>
-         </form>
-        <%  } else { %>
+        
+        <% } else { %>
         <form method="post" action ="index.jsp">
                 <tbody>
                 <table>
@@ -36,11 +55,23 @@
                         <td>Password: <input type="password" name ="pass" value="" /></td>
                     </tr>
                     <tr>
-                        <td><input type="submit" value ="Login" /></td>
+                        <td><input type="submit" name="Login" value ="Login" /></td>
                     </tr>
                     </table>
                 </tbody>
         </form>
-        <% } %>
+        <% 
+            }
+        %>
+        
+        <%
+            if(request.getParameter("Login") != null && !userDB.checkUser("Select * from users where username='" + request.getParameter("uname") +"';"))
+            {
+                userHandler.createNewUser(("Insert into users (username, password) values('" + request.getParameter("uname") + "', '" + request.getParameter("pass") + "')"), request.getParameter("uname"));
+                session.setAttribute("username", username);
+                response.sendRedirect(request.getContextPath()+"/items.jsp");
+            }
+            %>
+
     </body>
 </html>

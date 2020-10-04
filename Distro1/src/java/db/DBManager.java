@@ -8,6 +8,7 @@ package db;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
+
 public class DBManager {
     
    private static DBManager instance = null;
@@ -29,5 +30,7 @@ public class DBManager {
    public static Connection getConnection(){
        return getInstance().con;
    }
+   
+
     
 }

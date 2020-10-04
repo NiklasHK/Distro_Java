@@ -14,8 +14,8 @@ public class Item {
     private String descr;
     private int id;
     
-    static public Collection searchItems(String group){
-        return ItemDB.searchItems(group);
+    static public Collection getItems(String group){
+        return ItemDB.getItems(group);
     }
     
     protected Item(int id, String name, String desc){
