@@ -25,8 +25,8 @@
         <h1>Shopping cart</h1>
         <table>
             <tr>
-                <%  ArrayList<Integer> quantity = ItemHandler.getBasket("SELECT * FROM shoppingcart where username='" + session.getAttribute("username") + "';");
-                    ArrayList<ItemInfo> items = (ArrayList) ItemHandler.getItemsWithGroup("SELECT * FROM fruitstock");
+                <%  ArrayList<Integer> quantity = ItemHandler.getBasket(String.valueOf(session.getAttribute("username")));
+                    ArrayList<ItemInfo> items = (ArrayList) ItemHandler.getItemsWithGroup();
                     for (int i = 0; i<quantity.size();i++) { %>
                     <tr>
                         <%if(quantity.get(i)>0){ %>
@@ -47,7 +47,7 @@
             
             
          <% if(request.getParameter("remove") != null ){
-               ItemHandler.addToBasket("UPDATE shoppingcart SET " + request.getParameter("remove") + "quantity = " + request.getParameter("remove") + "quantity -1 WHERE username='"+ session.getAttribute("username")+"'");
+               ItemHandler.removeFromBasket(request.getParameter("remove"), String.valueOf(session.getAttribute("username")));
                response.sendRedirect(request.getContextPath()+"/shoppingCart.jsp");
             } 
         %>   

@@ -20,6 +20,7 @@ public class DBManager {
        return instance;
    }
     
+   //Connection to the database
    private DBManager(){
        try{
            Class.forName("com.mysql.jdbc.Driver").newInstance();
@@ -27,6 +28,7 @@ public class DBManager {
        }catch(Exception e){e.printStackTrace();}
    }
     
+   //Return existing connection
    public static Connection getConnection(){
        return getInstance().con;
    }

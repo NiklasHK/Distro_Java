@@ -19,7 +19,7 @@
         <h1> Items in stock </h1>
         <table style="align-content: flex-start">
             <tr>
-            <% Collection<ItemInfo> items = ItemHandler.getItemsWithGroup("SELECT * FROM fruitstock");
+            <% Collection<ItemInfo> items = ItemHandler.getItemsWithGroup();
             Iterator<ItemInfo> it = items.iterator();
             for (; it.hasNext();) {
                 ItemInfo item = it.next();%>
@@ -40,8 +40,10 @@
         </table>
 
             <% if(request.getParameter("add") != null ){
-               ItemHandler.addToBasket("UPDATE shoppingcart SET " + request.getParameter("add") + "quantity = " + request.getParameter("add") + "quantity +1 WHERE username='"+ session.getAttribute("username")+"'");
+               ItemHandler.addToBasket(request.getParameter("add"), String.valueOf(session.getAttribute("username")));
             } 
-            %>     
+            %> 
     </body>
+    
+
 </html>

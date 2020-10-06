@@ -9,8 +9,9 @@ import ui.ItemInfo;
 
 public class ItemHandler {
     
-    public static Collection<ItemInfo> getItemsWithGroup(String s){
-        Collection c = Item.getItems(s);
+    // Retrieve all items, return as an arraylist
+    public static ArrayList<ItemInfo> getItemsWithGroup(){
+        Collection c = Item.getItems();
         ArrayList<ItemInfo> items = new ArrayList<ItemInfo>();
         for(Iterator it = c.iterator(); it.hasNext();){
             Item item = (Item) it.next();
@@ -19,12 +20,19 @@ public class ItemHandler {
         return items;
     }
     
-    public static void addToBasket(String s){
-        ItemDB.addToBasket(s);
+    //Add item to shopping cart
+    public static void addToBasket(String item, String uname){
+        ItemDB.addToBasket(item, uname);
     }
     
-    public static ArrayList getBasket(String s){
-        return ItemDB.getBasket(s);
+    // Remove item from shopping cart
+    public static void removeFromBasket(String item, String uname){
+        ItemDB.removeFromBasket(item, uname);
+    }
+    
+    //Retrieve shopping cart
+    public static ArrayList getBasket(String uname){
+        return ItemDB.getBasket(uname);
     }
 
 }

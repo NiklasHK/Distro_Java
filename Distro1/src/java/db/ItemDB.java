@@ -1,18 +1,21 @@
 package db;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
 public class ItemDB extends bo.Item{
-    public static ArrayList getItems(String item_group){
+    
+    //Return all items in the database
+    public static ArrayList getItems(){
         ArrayList<Object> items = new ArrayList<>();
         try{
             Connection con = DBManager.getConnection();
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery(item_group);
+            ResultSet rs = st.executeQuery("SELECT * FROM fruitstock");
             
             while(rs.next()){
                 int i = rs.getInt("id");
@@ -23,30 +26,51 @@ public class ItemDB extends bo.Item{
         }catch (SQLException e){ e.printStackTrace(); }
         return items;
     }
-    public static void addToBasket(String s){
+    
+    // Increase quantity of an item
+    public static void addToBasket(String item, String uname){
         try{
             Connection con = DBManager.getConnection();
-            Statement st = con.createStatement();
-            st.executeUpdate(s);
+            String query = "UPDATE shoppingcart SET "+item+" = "+item+" +1 WHERE username= ?";
+            PreparedStatement st = con.prepareStatement(query);
+            st.setString(1, uname);
+            System.out.println(st.toString());
+            st.executeUpdate();
         } catch (SQLException e) { e.printStackTrace(); }
     }
     
-    public static ArrayList getBasket(String s){
+        // Reduce quantity of an item
+    public static void removeFromBasket(String item, String uname){
+        try{
+            Connection con = DBManager.getConnection();
+            String query = "UPDATE shoppingcart SET "+item+" = "+item+" -1 WHERE username= ?";
+            PreparedStatement st = con.prepareStatement(query);
+            st.setString(1, uname);
+            System.out.println(st.toString());
+            st.executeUpdate();
+        } catch (SQLException e) { e.printStackTrace(); }
+    }
+    
+    //Return a shopping cart for a user and its items 
+    public static ArrayList getBasket(String uname){
         ArrayList<Integer> quantity = new ArrayList<>();
         try{
             Connection con = DBManager.getConnection();
-            Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery(s);
+            String query = "SELECT * FROM shoppingcart where username=?";
+            PreparedStatement st = con.prepareStatement(query);
+            st.setString(1, uname);
+            ResultSet rs = st.executeQuery();
             
             while(rs.next()){
-                int i = rs.getInt("applequantity");
-                int j = rs.getInt("bananaquantity");
-                int k = rs.getInt("pearquantity"); 
+                int i = rs.getInt("apple");
+                int j = rs.getInt("banana");
+                int k = rs.getInt("pear"); 
                 quantity.add(i);
                 quantity.add(j);
                 quantity.add(k);
             }
         } catch (SQLException e) {
+            System.out.println("Exception: "); e.printStackTrace();
         }
         return quantity;
     }
@@ -54,5 +78,4 @@ public class ItemDB extends bo.Item{
     private ItemDB(int id, String name, String desc){
        super(id, name, desc);
    }
-
 }

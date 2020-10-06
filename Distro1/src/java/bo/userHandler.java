@@ -13,13 +13,19 @@ import db.userDB;
  */
 public class userHandler {
     
-    public static boolean checkUser(String s){
-        return userDB.checkUser(s);
+    //Check if user exists
+    public static boolean checkExistingUser(String uname){
+        return userDB.checkExistingUser(uname);
     }
     
+    //Check if password corresponds to username
+    public static boolean checkCorrectPassword(String uname, String pass){
+        return userDB.checkCorrectPassword(uname, pass);
+    }
     
-    public static void createNewUser(String s, String name){
-        userDB.createUser(s, name);
+    // Create new user if user doesn't exist
+    public static void createNewUser(String uname, String pass){
+        userDB.createUser(uname, pass);
     }
     
     
